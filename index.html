@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>William Brown-Lewis — Cybersecurity & AI Builder</title>
+<meta name="description" content="Cybersecurity student at UTSA building security tooling, automation pipelines, and self-hosted infrastructure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0e14;
+  --panel:#121722;
+  --panel-2:#171d2b;
+  --line:#232b3d;
+  --text:#c9d2e0;
+  --dim:#7c8698;
+  --amber:#ffb454;
+  --amber-dim:#b57e3a;
+  --green:#7fd962;
+  --red:#f07178;
+  --blue:#59c2ff;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'IBM Plex Sans',sans-serif;
+  --disp:'Space Grotesk',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;font-size:16px}
+::selection{background:var(--amber);color:#0b0e14}
+a{color:var(--amber);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(11,14,20,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1060px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px}
+.nav-logo{font-family:var(--mono);font-size:.9rem;color:var(--text);font-weight:600}
+.nav-logo span{color:var(--amber)}
+.nav-links{display:flex;gap:22px;margin-left:auto}
+.nav-links a{font-family:var(--mono);font-size:.8rem;color:var(--dim);text-decoration:none}
+.nav-links a:hover{color:var(--amber);text-decoration:none}
+@media(max-width:640px){.nav-links{gap:14px}.nav-links a:nth-child(n+4){display:none}}
+
+/* ---------- hero terminal ---------- */
+header{max-width:1060px;margin:0 auto;padding:120px 24px 40px}
+.term{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.term-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--panel-2);border-bottom:1px solid var(--line)}
+.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#f07178}.dot.y{background:#ffb454}.dot.g{background:#7fd962}
+.term-title{font-family:var(--mono);font-size:.72rem;color:var(--dim);margin-left:8px}
+.term-body{padding:26px 26px 30px;font-family:var(--mono);font-size:.9rem}
+.term-body .ln{margin-bottom:6px;white-space:pre-wrap;word-break:break-word}
+.prompt{color:var(--green)}
+.cmd{color:var(--text)}
+.out{color:var(--dim)}
+.hero-name{font-family:var(--disp);font-size:clamp(2.2rem,6vw,3.6rem);font-weight:700;color:#fff;letter-spacing:-.02em;margin:14px 0 4px;line-height:1.05}
+.hero-role{font-family:var(--mono);font-size:clamp(.85rem,2vw,1rem);color:var(--amber);margin-bottom:16px}
+.hero-blurb{font-family:var(--sans);color:var(--text);max-width:640px;margin-bottom:22px}
+.cursor{display:inline-block;width:9px;height:1.1em;background:var(--amber);vertical-align:text-bottom;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.cursor{animation:none}}
+.hero-links{display:flex;flex-wrap:wrap;gap:12px}
+.btn{font-family:var(--mono);font-size:.8rem;padding:9px 16px;border:1px solid var(--line);border-radius:6px;color:var(--text);background:var(--panel-2);transition:border-color .15s,color .15s}
+.btn:hover{border-color:var(--amber);color:var(--amber);text-decoration:none}
+.btn.primary{background:var(--amber);border-color:var(--amber);color:#0b0e14;font-weight:600}
+.btn.primary:hover{background:#ffc477;color:#0b0e14}
+
+/* ---------- sections ---------- */
+section{max-width:1060px;margin:0 auto;padding:64px 24px 8px}
+.sec-label{font-family:var(--mono);font-size:.78rem;color:var(--green);margin-bottom:8px}
+.sec-label::before{content:'[ OK ] ';color:var(--dim)}
+h2{font-family:var(--disp);font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:700;color:#fff;letter-spacing:-.01em;margin-bottom:26px}
+
+/* skills */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.skill{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.skill h3{font-family:var(--mono);font-size:.82rem;color:var(--amber);margin-bottom:10px;font-weight:600}
+.skill p{font-size:.88rem;color:var(--dim)}
+
+/* projects */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.proj{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,transform .15s}
+.proj:hover{border-color:var(--amber-dim);transform:translateY(-2px)}
+.proj h3{font-family:var(--disp);font-size:1.05rem;color:#fff;font-weight:600}
+.proj p{font-size:.88rem;color:var(--dim);flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:.68rem;color:var(--blue);background:rgba(89,194,255,.08);border:1px solid rgba(89,194,255,.2);border-radius:4px;padding:2px 8px}
+.tag.sec{color:var(--red);background:rgba(240,113,120,.07);border-color:rgba(240,113,120,.22)}
+.tag.ai{color:var(--green);background:rgba(127,217,98,.07);border-color:rgba(127,217,98,.22)}
+
+/* experience timeline */
+.xp{border-left:1px solid var(--line);margin-left:6px;padding-left:26px;display:flex;flex-direction:column;gap:30px}
+.xp-item{position:relative}
+.xp-item::before{content:'';position:absolute;left:-31px;top:7px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--amber)}
+.xp-when{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+.xp-item h3{font-family:var(--disp);font-size:1.02rem;color:#fff;font-weight:600;margin:2px 0}
+.xp-org{font-family:var(--mono);font-size:.78rem;color:var(--amber)}
+.xp-item p{font-size:.88rem;color:var(--dim);margin-top:6px;max-width:680px}
+
+/* creds */
+.cred-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.cred{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px}
+.cred h3{font-family:var(--mono);font-size:.82rem;color:var(--amber);font-weight:600;margin-bottom:12px}
+.cred ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.cred li{font-size:.88rem;color:var(--dim);padding-left:16px;position:relative}
+.cred li::before{content:'▸';position:absolute;left:0;color:var(--green);font-size:.7rem;top:3px}
+.cred li strong{color:var(--text);font-weight:500}
+
+/* contact / footer */
+.contact-box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:34px;text-align:center}
+.contact-box p{color:var(--dim);max-width:520px;margin:0 auto 20px}
+footer{max-width:1060px;margin:0 auto;padding:50px 24px 30px;text-align:center}
+footer p{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+
+/* ---------- intro sequence ---------- */
+#intro{position:fixed;inset:0;z-index:1000;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#intro.hidden{display:none}
+.intro-phase{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column}
+.intro-phase.active{display:flex}
+#skip-btn{position:absolute;bottom:22px;right:24px;z-index:1010;font-family:var(--mono);font-size:.72rem;color:#555;background:none;border:1px solid #333;border-radius:5px;padding:6px 14px;cursor:pointer}
+#skip-btn:hover{color:var(--amber);border-color:var(--amber)}
+
+/* phase 1 — market */
+#phase-market{background:radial-gradient(circle at 50% 20%,#0d1a12 0%,#050a07 70%)}
+.mkt-box{width:min(680px,92vw);background:#0a0f0c;border:1px solid #1d3326;border-radius:10px;overflow:hidden;box-shadow:0 0 60px rgba(127,217,98,.15)}
+.mkt-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;padding:16px 20px 10px}
+.mkt-tick{font-family:var(--disp);font-weight:700;font-size:clamp(1.3rem,4vw,1.9rem);color:#fff}
+.mkt-name{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+.mkt-price{font-family:var(--mono);font-weight:600;font-size:clamp(1rem,3vw,1.4rem);color:var(--green);margin-left:auto}
+.mkt-chg{font-family:var(--mono);font-size:.78rem;color:var(--green)}
+.mkt-stats{display:flex;flex-wrap:wrap;gap:6px 18px;padding:0 20px 12px}
+.mkt-stat{font-family:var(--mono);font-size:.68rem;color:var(--dim)}
+.mkt-stat b{color:var(--amber);font-weight:600}
+#chart{display:block;width:100%;height:220px;border-top:1px solid #1d3326;border-bottom:1px solid #1d3326}
+.mkt-btns{display:flex;gap:14px;padding:18px 20px}
+.trade-btn{flex:1;font-family:var(--disp);font-weight:700;font-size:1.05rem;letter-spacing:.1em;border:none;border-radius:8px;padding:16px 0;cursor:pointer;animation:pulse 1.4s ease-in-out infinite}
+.trade-btn.buy{background:linear-gradient(180deg,#7fd962,#4ca02f);color:#04120a;box-shadow:0 0 24px rgba(127,217,98,.4)}
+.trade-btn.sell{background:linear-gradient(180deg,#f07178,#c23a44);color:#1a0508;box-shadow:0 0 24px rgba(240,113,120,.35);animation-delay:.7s}
+.trade-btn:disabled{opacity:.5;animation:none;cursor:default}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.mkt-banner{font-family:var(--mono);font-size:.7rem;color:#ffd700;text-align:center;padding:8px;background:#141006;border-top:1px solid #332a10;white-space:nowrap;overflow:hidden}
+.mkt-banner span{display:inline-block;animation:tickerScroll 14s linear infinite}
+@keyframes tickerScroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+#win-msg{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:var(--disp);font-weight:700;font-size:clamp(1.6rem,7vw,3.4rem);color:var(--green);text-shadow:0 0 30px var(--green);z-index:5;animation:winflash .18s steps(2) infinite;text-align:center}
+@keyframes winflash{50%{color:#ffd700;text-shadow:0 0 30px #ffd700}}
+
+/* phase 2 — corruption */
+#phase-corrupt{background:#000}
+#glitch-canvas{position:absolute;inset:0;width:100%;height:100%}
+.err-text{position:relative;z-index:2;font-family:var(--mono);color:#f00;font-size:clamp(.8rem,2.4vw,1.1rem);text-align:center;line-height:1.9;text-shadow:2px 0 #0ff,-2px 0 #f0f;animation:shake .09s infinite}
+@keyframes shake{0%{transform:translate(0,0)}25%{transform:translate(-3px,2px)}50%{transform:translate(2px,-2px)}75%{transform:translate(-1px,-3px)}}
+
+/* phase 3 — binary snake */
+#phase-snake{background:#000}
+#snake-canvas{position:absolute;inset:0;width:100%;height:100%}
+
+#intro.fade-out{animation:introFade .8s ease forwards}
+@keyframes introFade{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){#intro{display:none}}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <button id="skip-btn">skip &gt;&gt;</button>
+
+  <!-- PHASE 1: the William exchange -->
+  <div class="intro-phase active" id="phase-market">
+    <div class="mkt-box" style="position:relative">
+      <div class="mkt-head">
+        <span class="mkt-tick">$WBL</span>
+        <span class="mkt-name">BROWN-LEWIS INDUSTRIES · NASDAQ: HIREME</span>
+        <span class="mkt-price" id="mkt-price">$127.68</span>
+        <span class="mkt-chg" id="mkt-chg">▲ +1,027.4%</span>
+      </div>
+      <div class="mkt-stats">
+        <span class="mkt-stat">POTENTIAL: <b>UNLIMITED</b></span>
+        <span class="mkt-stat">RISK: <b>DEAN'S LIST</b></span>
+        <span class="mkt-stat">VOLATILITY: <b>CAFFEINATED</b></span>
+        <span class="mkt-stat">ANALYST RATING: <b>STRONG HIRE</b></span>
+      </div>
+      <canvas id="chart" width="1360" height="440"></canvas>
+      <div class="mkt-btns">
+        <button class="trade-btn buy" id="buy-btn">▲ BUY</button>
+        <button class="trade-btn sell" id="sell-btn">▼ SELL</button>
+      </div>
+      <div class="mkt-banner"><span>⚠ NOT FINANCIAL ADVICE ⚠ $WBL UP 1,027% SINCE FALL 2025 ⚠ INSIDERS SAY "HE SHIPS" ⚠ SECURITY+ CERTIFIED ASSET ⚠ BUY NOW BEFORE THE INTERNSHIP OFFERS ⚠</span></div>
+      <div id="win-msg"></div>
+    </div>
+  </div>
+
+  <!-- PHASE 2: corruption -->
+  <div class="intro-phase" id="phase-corrupt">
+    <canvas id="glitch-canvas"></canvas>
+    <div class="err-text">
+      FATAL ERROR 0xDEADBEEF<br>
+      MARKET INTEGRITY COMPROMISED<br>
+      wbl_exchange.exe HAS STOPPED RESPONDING<br>
+      >_ payload injected . . .
+    </div>
+  </div>
+
+  <!-- PHASE 3: binary snake -->
+  <div class="intro-phase" id="phase-snake">
+    <canvas id="snake-canvas"></canvas>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#top" style="text-decoration:none">wbl<span>@</span>satx:~$</a>
+    <div class="nav-links">
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#experience">experience</a>
+      <a href="#creds">education</a>
+      <a href="#contact">contact</a>
+      <a href="resume.html" style="color:var(--amber)">resumé</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="term">
+    <div class="term-bar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <span class="term-title">wbl@satx: ~/portfolio</span>
+    </div>
+    <div class="term-body">
+      <div class="ln"><span class="prompt">wbl@satx:~$</span> <span class="cmd">whoami</span></div>
+      <h1 class="hero-name">William Brown-Lewis</h1>
+      <div class="hero-role">// cybersecurity student · AI & automation builder</div>
+      <p class="hero-blurb">I'm a cybersecurity student at UTSA who likes building real systems end-to-end — honeypots, self-hosted infrastructure, security research demos, and AI-driven automation pipelines. Dean's List, Security+ certified, and always shipping something.</p>
+      <div class="ln"><span class="prompt">wbl@satx:~$</span> <span class="cmd">ls ./links</span></div>
+      <div class="hero-links" style="margin-top:10px">
+        <a class="btn primary" href="#projects">view projects</a>
+        <a class="btn" href="resume.html">resumé</a>
+        <a class="btn" href="https://linkedin.com/in/william-brown-lewis" target="_blank" rel="noopener">linkedin</a>
+        <a class="btn" href="mailto:wbl127683@gmail.com">email</a>
+      </div>
+      <div class="ln" style="margin-top:18px"><span class="prompt">wbl@satx:~$</span> <span class="cursor"></span></div>
+    </div>
+  </div>
+</header>
+
+<section id="skills">
+  <div class="sec-label">skills loaded</div>
+  <h2>What I work with</h2>
+  <div class="skill-grid">
+    <div class="skill">
+      <h3>./cybersecurity</h3>
+      <p>Linux, cyber defense, honeypot deployment, network security, threat analysis, NFC/RFID security research, vulnerability scanning</p>
+    </div>
+    <div class="skill">
+      <h3>./ai-automation</h3>
+      <p>Data annotation & model evaluation, LLM/API integration, AI-directed system architecture, n8n, Docker, Ngrok, workflow design</p>
+    </div>
+    <div class="skill">
+      <h3>./infrastructure</h3>
+      <p>Self-hosted cloud storage, Raspberry Pi, site performance optimization, Git, digital asset management</p>
+    </div>
+    <div class="skill">
+      <h3>./marketing-business</h3>
+      <p>Paid social & content strategy, conversion copywriting, campaign analytics, customer service, trading & quantitative analysis</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="sec-label">7 projects indexed</div>
+  <h2>Projects</h2>
+  <div class="proj-grid">
+    <div class="proj">
+      <h3>Honeypot Deployment & Analysis</h3>
+      <p>Engineered and deployed a network honeypot on a Raspberry Pi to detect and analyze unauthorized access attempts, monitoring activity and studying attacker behavior patterns with Linux networking tools.</p>
+      <div class="tags"><span class="tag sec">security</span><span class="tag">raspberry pi</span><span class="tag">linux</span></div>
+    </div>
+    <div class="proj">
+      <h3>NFC Tag Security Research</h3>
+      <p>Researched and demonstrated NFC-based social engineering risks (NDEF tag injection) in a controlled environment, and built an awareness page with a mitigation guide covering detection and defense.</p>
+      <div class="tags"><span class="tag sec">security</span><span class="tag">nfc/ndef</span><span class="tag">python</span></div>
+    </div>
+    <div class="proj">
+      <h3>Multi-Asset Trading Signal Platform</h3>
+      <p>Specified and directed AI-assisted development of a production-style trading system: two-sided signal engine, walk-forward-optimized backtester, memecoin scanner with rug-risk gating, and a full risk framework with circuit breakers and Telegram alerting.</p>
+      <div class="tags"><span class="tag ai">ai-directed</span><span class="tag">python</span><span class="tag">pandas</span></div>
+    </div>
+    <div class="proj">
+      <h3>Content & Engagement Optimization Engine</h3>
+      <p>Automated pipeline that generates, schedules, and analyzes short-form video campaigns across multiple social accounts, iterating on posting strategy from live retention and engagement data.</p>
+      <div class="tags"><span class="tag ai">llm apis</span><span class="tag">python</span><span class="tag">social apis</span></div>
+    </div>
+    <div class="proj">
+      <h3>Self-Hosted Personal Cloud</h3>
+      <p>Converted a Raspberry Pi into a private cloud storage system with secure remote upload and access from any device — a self-owned alternative to commercial cloud services.</p>
+      <div class="tags"><span class="tag">raspberry pi</span><span class="tag">linux</span><span class="tag sec">self-hosted</span></div>
+    </div>
+    <div class="proj">
+      <h3>Local Voice-Model SaaS Tool</h3>
+      <p>Privacy-focused voice model service with automated pipelines for audio input, transcription, inference, and response generation.</p>
+      <div class="tags"><span class="tag ai">n8n</span><span class="tag">docker</span><span class="tag">ngrok</span></div>
+    </div>
+    <div class="proj">
+      <h3>This Website</h3>
+      <p>Hand-built portfolio site — no frameworks, no templates. Terminal aesthetic inspired by the tools I live in.</p>
+      <div class="tags"><span class="tag">html/css</span><span class="tag">design</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="sec-label">experience log</div>
+  <h2>Experience</h2>
+  <div class="xp">
+    <div class="xp-item">
+      <div class="xp-when">MAY 2026 — PRESENT</div>
+      <h3>Marketing, Web & Customer Operations Specialist</h3>
+      <div class="xp-org">Nightwalk</div>
+      <p>End-to-end digital marketing ops: ad creation, direct-response copy, multi-platform campaigns (TikTok, IG Reels). Built and maintain the brand website with page-speed optimization for paid traffic, and handle customer service converting inquiries into resolved issues and booked sales.</p>
+    </div>
+    <div class="xp-item">
+      <div class="xp-when">JAN 2026 — PRESENT</div>
+      <h3>AI Quality & Data Annotation Specialist</h3>
+      <div class="xp-org">Handshake AI · Remote</div>
+      <p>High-accuracy data annotation and evaluation for AI model training across text and multimodal tasks — evaluating model reasoning quality, safety alignment, and output correctness.</p>
+    </div>
+    <div class="xp-item">
+      <div class="xp-when">JUL 2024 — PRESENT</div>
+      <h3>Community Involvement & Leadership</h3>
+      <div class="xp-org">University of Texas at San Antonio</div>
+      <p>Coordinated multi-brand runway events and logistics for student-led fashion showcases; built professional networks across UTSA communities.</p>
+    </div>
+    <div class="xp-item">
+      <div class="xp-when">JUL 2024 — OCT 2025</div>
+      <h3>Fashion Model & Marketing Intern</h3>
+      <div class="xp-org">LVSR & ELSIUM Clothing Brands</div>
+      <p>Modeled and marketed collections across five niche fashion categories, executed retail marketing at pop-ups, and coordinated photoshoots and brand visibility initiatives.</p>
+    </div>
+    <div class="xp-item">
+      <div class="xp-when">JAN 2022 — DEC 2024</div>
+      <h3>IT Career Training</h3>
+      <div class="xp-org">KISD Career Center · Killeen, TX</div>
+      <p>Hands-on cybersecurity training in system protection, cyber defense, and threat identification — vulnerability scanning, diagnosis, and remediation in simulated network environments.</p>
+    </div>
+  </div>
+</section>
+
+<section id="creds">
+  <div class="sec-label">credentials verified</div>
+  <h2>Education & Certifications</h2>
+  <div class="cred-cols">
+    <div class="cred">
+      <h3>./education</h3>
+      <ul>
+        <li><strong>BBA, Cybersecurity</strong> — UTSA, College of Applied AI, Cyber and Computing · Expected Dec 2028 · GPA 3.54</li>
+        <li><strong>Dean's List</strong> — Fall 2025 & Spring 2026</li>
+        <li>Clubs: Ave Magazine, Period Society</li>
+      </ul>
+    </div>
+    <div class="cred">
+      <h3>./certifications</h3>
+      <ul>
+        <li><strong>CompTIA Security+</strong></li>
+        <li>IT Specialist – Network Security (Certiport)</li>
+        <li>Computer Networking Fundamentals (NOCTI)</li>
+        <li>Agile Transformation Leadership — Scrum Master</li>
+        <li>Certified Trader — Lucid Funded</li>
+        <li>Foundations of Cybersecurity (Coursera)</li>
+      </ul>
+    </div>
+    <div class="cred">
+      <h3>./conferences</h3>
+      <ul>
+        <li><strong>PEARC26</strong> — selected attendee, institutionally funded (Minneapolis, MN)</li>
+        <li>TACC Cybersecurity Camp — Texas Advanced Computing Center</li>
+        <li>RowdyCon — UTSA cybersecurity conference</li>
+        <li>Tech Day SATX · BNI Business Conference · Adobe Conference</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="sec-label">channel open</div>
+  <h2>Contact</h2>
+  <div class="contact-box">
+    <p>Open to internships, security research collaborations, and interesting build projects. The fastest way to reach me:</p>
+    <div class="hero-links" style="justify-content:center">
+      <a class="btn primary" href="mailto:wbl127683@gmail.com">wbl127683@gmail.com</a>
+      <a class="btn" href="https://linkedin.com/in/william-brown-lewis" target="_blank" rel="noopener">linkedin.com/in/william-brown-lewis</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 William Brown-Lewis · built by hand in San Antonio, TX · <span style="color:var(--green)">exit 0</span></p>
+</footer>
+
+<script>
+(function(){
+  var intro=document.getElementById('intro');
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){intro.classList.add('hidden');return;}
+
+  var timers=[];
+  function later(fn,ms){timers.push(setTimeout(fn,ms));}
+  function endIntro(){
+    timers.forEach(clearTimeout);
+    intro.classList.add('fade-out');
+    setTimeout(function(){intro.classList.add('hidden');},850);
+  }
+  document.getElementById('skip-btn').addEventListener('click',endIntro);
+
+  /* ---------- PHASE 1: the $WBL exchange ---------- */
+  var chart=document.getElementById('chart');
+  var cc=chart.getContext('2d');
+  var W=chart.width,H=chart.height;
+  var candles=[], price=100, mktRAF, mode='live', modeT=0;
+  // seed history: mostly up and to the right
+  for(var i=0;i<60;i++){
+    var o=price, ch=(Math.random()-.38)*4;
+    price=Math.max(5,price+ch);
+    candles.push({o:o,c:price,h:Math.max(o,price)+Math.random()*2,l:Math.min(o,price)-Math.random()*2});
+  }
+  var tick=0;
+  function step(){
+    tick++;
+    if(mode==='live' && tick%9===0){
+      var o=price, ch=(Math.random()-.38)*4;
+      price=Math.max(5,price+ch);
+      candles.push({o:o,c:price,h:Math.max(o,price)+Math.random()*2,l:Math.min(o,price)-Math.random()*2});
+      if(candles.length>60)candles.shift();
+    }
+    if(mode==='moon'){modeT++;var o2=price;price+=6+modeT*1.5;
+      if(tick%3===0){candles.push({o:o2,c:price,h:price+3,l:o2-1});if(candles.length>60)candles.shift();}}
+    if(mode==='crash'){modeT++;var o3=price;price=Math.max(.42,price-(8+modeT*2));
+      if(tick%3===0){candles.push({o:o3,c:price,h:o3+1,l:price-2});if(candles.length>60)candles.shift();}}
+    draw();
+    mktRAF=requestAnimationFrame(step);
+  }
+  function draw(){
+    cc.fillStyle='#0a0f0c';cc.fillRect(0,0,W,H);
+    // grid
+    cc.strokeStyle='rgba(127,217,98,0.07)';cc.lineWidth=1;
+    for(var gy=0;gy<H;gy+=44){cc.beginPath();cc.moveTo(0,gy);cc.lineTo(W,gy);cc.stroke();}
+    var lo=Infinity,hi=-Infinity;
+    candles.forEach(function(k){lo=Math.min(lo,k.l);hi=Math.max(hi,k.h);});
+    var pad=(hi-lo)*.12||1;lo-=pad;hi+=pad;
+    var cw=W/60;
+    function Y(v){return H-(v-lo)/(hi-lo)*H;}
+    candles.forEach(function(k,idx){
+      var x=idx*cw+cw/2, up=k.c>=k.o;
+      cc.strokeStyle=up?'#7fd962':'#f07178';
+      cc.beginPath();cc.moveTo(x,Y(k.h));cc.lineTo(x,Y(k.l));cc.stroke();
+      cc.fillStyle=up?'#7fd962':'#f07178';
+      var y1=Y(Math.max(k.o,k.c)), y2=Y(Math.min(k.o,k.c));
+      cc.fillRect(x-cw*.32,y1,cw*.64,Math.max(2,y2-y1));
+    });
+    // price readout
+    var pEl=document.getElementById('mkt-price'),cEl=document.getElementById('mkt-chg');
+    pEl.textContent='$'+price.toFixed(2);
+    var chg=((price-100)/100*100);
+    cEl.textContent=(chg>=0?'▲ +':'▼ ')+chg.toFixed(1)+'%';
+    pEl.style.color=cEl.style.color=(chg>=0?'#7fd962':'#f07178');
+  }
+  step();
+
+  var buyBtn=document.getElementById('buy-btn'), sellBtn=document.getElementById('sell-btn');
+  function lockBtns(){buyBtn.disabled=sellBtn.disabled=true;}
+  function flash(msg){var w=document.getElementById('win-msg');w.textContent=msg;w.style.display='flex';}
+  buyBtn.addEventListener('click',function(){
+    lockBtns();mode='moon';modeT=0;
+    later(function(){flash('🚀 TO THE MOON!!!');},900);
+    later(function(){cancelAnimationFrame(mktRAF);startCorrupt();},2300);
+  });
+  sellBtn.addEventListener('click',function(){
+    lockBtns();mode='crash';modeT=0;
+    later(function(){flash('📉 PAPER HANDS?!');},900);
+    later(function(){cancelAnimationFrame(mktRAF);startCorrupt();},2300);
+  });
+  // auto-buy if idle so nobody gets stuck
+  later(function(){if(!buyBtn.disabled)buyBtn.click();},7000);
+
+  /* ---------- PHASE 2: corruption ---------- */
+  function show(id){
+    document.querySelectorAll('.intro-phase').forEach(function(p){p.classList.remove('active');});
+    document.getElementById(id).classList.add('active');
+  }
+  var glitchRAF;
+  function startCorrupt(){
+    show('phase-corrupt');
+    var cv=document.getElementById('glitch-canvas');
+    cv.width=innerWidth;cv.height=innerHeight;
+    var g=cv.getContext('2d');
+    (function frame(){
+      // random glitch bars + static
+      g.fillStyle='rgba(0,0,0,0.25)';g.fillRect(0,0,cv.width,cv.height);
+      for(var i=0;i<14;i++){
+        g.fillStyle=['#f00','#0ff','#f0f','#fff','#111'][i%5];
+        g.globalAlpha=Math.random()*.5;
+        g.fillRect(Math.random()*cv.width,Math.random()*cv.height,Math.random()*cv.width*.6,2+Math.random()*24);
+      }
+      g.globalAlpha=1;
+      for(var j=0;j<220;j++){
+        g.fillStyle=Math.random()>.5?'#222':'#0a0a0a';
+        g.fillRect(Math.random()*cv.width,Math.random()*cv.height,2,2);
+      }
+      glitchRAF=requestAnimationFrame(frame);
+    })();
+    later(function(){cancelAnimationFrame(glitchRAF);startSnake();},2200);
+  }
+
+  /* ---------- PHASE 3: binary snake ---------- */
+  var snakeRAF;
+  function startSnake(){
+    show('phase-snake');
+    var cv=document.getElementById('snake-canvas');
+    cv.width=innerWidth;cv.height=innerHeight;
+    var c=cv.getContext('2d');
+    var trail=[];            // points of the snake path
+    var t=0, maxLen=90;
+    function head(tt){
+      // serpentine path across the screen
+      var x=cv.width*.1 + (cv.width*.8)*((tt%260)/260);
+      var y=cv.height/2 + Math.sin(tt*.09)*cv.height*.28;
+      return {x:x,y:y};
+    }
+    (function frame(){
+      c.fillStyle='rgba(0,0,0,0.28)';c.fillRect(0,0,cv.width,cv.height);
+      t+=2.2;
+      trail.push(head(t));
+      if(trail.length>maxLen)trail.shift();
+      c.font='16px "IBM Plex Mono",monospace';c.textAlign='center';
+      for(var i=0;i<trail.length;i++){
+        var p=trail[i], frac=i/trail.length;
+        // body thickness: draw a few bits around the spine
+        var w=2+Math.floor(frac*3);
+        for(var k=-w;k<=w;k++){
+          var alpha=frac*(1-Math.abs(k)/(w+1));
+          c.fillStyle=(i===trail.length-1)?'rgba(255,180,84,'+alpha+')':'rgba(127,217,98,'+alpha+')';
+          c.fillText(Math.random()>.5?'1':'0', p.x, p.y+k*14);
+        }
+      }
+      snakeRAF=requestAnimationFrame(frame);
+    })();
+    later(function(){cancelAnimationFrame(snakeRAF);endIntro();},3800);
+  }
+})();
+</script>
+
+</body>
+</html>

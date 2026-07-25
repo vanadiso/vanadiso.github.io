@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumé — William Brown-Lewis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0e14;--panel:#121722;--panel-2:#171d2b;--line:#232b3d;
+  --text:#c9d2e0;--dim:#7c8698;--amber:#ffb454;--green:#7fd962;--blue:#59c2ff;
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;--disp:'Space Grotesk',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;font-size:15px}
+::selection{background:var(--amber);color:#0b0e14}
+a{color:var(--amber);text-decoration:none}
+a:hover{text-decoration:underline}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(11,14,20,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:860px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:20px}
+.nav-logo{font-family:var(--mono);font-size:.9rem;color:var(--text);font-weight:600;text-decoration:none}
+.nav-logo span{color:var(--amber)}
+.nav-inner .right{margin-left:auto;display:flex;gap:12px}
+.btn{font-family:var(--mono);font-size:.78rem;padding:8px 14px;border:1px solid var(--line);border-radius:6px;color:var(--text);background:var(--panel-2)}
+.btn:hover{border-color:var(--amber);color:var(--amber);text-decoration:none}
+.btn.primary{background:var(--amber);border-color:var(--amber);color:#0b0e14;font-weight:600}
+main{max-width:860px;margin:0 auto;padding:110px 24px 60px}
+.rez-head{margin-bottom:34px}
+.rez-head .path{font-family:var(--mono);font-size:.78rem;color:var(--green);margin-bottom:6px}
+h1{font-family:var(--disp);font-size:clamp(1.8rem,5vw,2.6rem);font-weight:700;color:#fff;letter-spacing:-.02em}
+.rez-contact{font-family:var(--mono);font-size:.78rem;color:var(--dim);margin-top:6px}
+h2{font-family:var(--mono);font-size:.85rem;color:var(--amber);font-weight:600;margin:38px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.entry{margin-bottom:20px}
+.entry-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;align-items:baseline}
+.entry h3{font-family:var(--disp);font-size:1rem;color:#fff;font-weight:600}
+.entry .org{font-family:var(--mono);font-size:.78rem;color:var(--blue)}
+.entry .when{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+.entry ul{margin:8px 0 0 2px;list-style:none}
+.entry li{font-size:.88rem;color:var(--dim);padding-left:16px;position:relative;margin-bottom:4px}
+.entry li::before{content:'▸';position:absolute;left:0;color:var(--green);font-size:.7rem;top:3px}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-family:var(--mono);font-size:.72rem;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}}
+footer{max-width:860px;margin:0 auto;padding:20px 24px 40px;text-align:center}
+footer p{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+@media print{
+  nav,footer{display:none}
+  body{background:#fff;color:#222}
+  h1,.entry h3{color:#000}
+  main{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">wbl<span>@</span>satx:~$</a>
+    <div class="right">
+      <a class="btn" href="index.html">← back home</a>
+      <a class="btn primary" href="resume.pdf" download>download PDF</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="rez-head">
+    <div class="path">~/portfolio/resume $ cat resume.md</div>
+    <h1>William Brown-Lewis</h1>
+    <div class="rez-contact">San Antonio, TX · (254) 338-8754 · <a href="mailto:wbl127683@gmail.com">wbl127683@gmail.com</a> · <a href="https://linkedin.com/in/william-brown-lewis" target="_blank" rel="noopener">linkedin.com/in/william-brown-lewis</a></div>
+  </div>
+
+  <p style="color:var(--dim);font-size:.92rem">Cybersecurity student and builder with hands-on experience across AI data annotation, security research, workflow automation, and digital marketing/web operations. Track record shipping real automation systems end-to-end, paired with leadership through Agile facilitation and campus community coordination. Dean's List honors with a strong technical foundation in Linux, cloud/self-hosted infrastructure, and threat analysis.</p>
+
+  <h2>// technical skills</h2>
+  <div class="pill-row">
+    <span class="pill">Linux</span><span class="pill">Cyber Defense</span><span class="pill">Honeypot Deployment</span><span class="pill">Network Security</span><span class="pill">Threat Analysis</span><span class="pill">NFC/RFID Security</span><span class="pill">Vulnerability Scanning</span><span class="pill">Data Annotation</span><span class="pill">Model Evaluation</span><span class="pill">LLM/API Integration</span><span class="pill">n8n</span><span class="pill">Docker</span><span class="pill">Ngrok</span><span class="pill">Raspberry Pi</span><span class="pill">Self-Hosted Cloud</span><span class="pill">Git</span><span class="pill">Paid Social Strategy</span><span class="pill">Conversion Copywriting</span><span class="pill">Campaign Analytics</span><span class="pill">Agile Facilitation</span>
+  </div>
+
+  <h2>// experience</h2>
+  <div class="entry">
+    <div class="entry-top"><h3>AI Quality & Data Annotation Specialist</h3><span class="when">JAN 2026 – PRESENT</span></div>
+    <div class="org">Handshake AI · Remote</div>
+    <ul>
+      <li>Performed high-accuracy data annotation and evaluation for AI model training across text and multimodal tasks</li>
+      <li>Evaluated model reasoning quality, safety alignment, and output correctness to improve model reliability</li>
+      <li>Recognized for consistency, attention to detail, and understanding of AI behavior patterns</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="entry-top"><h3>Marketing, Web & Customer Operations Specialist</h3><span class="when">MAY 2026 – PRESENT</span></div>
+    <div class="org">Nightwalk</div>
+    <ul>
+      <li>Managed end-to-end digital marketing ops: ad creation, direct-response copywriting, multi-platform campaigns (TikTok, IG Reels)</li>
+      <li>Built and maintained the brand website, optimizing page speed and load performance for paid traffic and conversions</li>
+      <li>Handled customer service and inbound communications, converting inquiries into resolved issues and booked sales</li>
+      <li>Designed and tested ad copy variants, using performance data to guide creative and targeting decisions</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="entry-top"><h3>Community Involvement & Leadership</h3><span class="when">JUL 2024 – PRESENT</span></div>
+    <div class="org">University of Texas at San Antonio</div>
+    <ul>
+      <li>Coordinated multi-brand runway events and managed logistics for student-led fashion showcases</li>
+      <li>Built professional networks across UTSA communities through digital platform management and communication</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="entry-top"><h3>Fashion Model & Marketing Intern</h3><span class="when">JUL 2024 – OCT 2025</span></div>
+    <div class="org">LVSR & ELSIUM Clothing Brands</div>
+    <ul>
+      <li>Modeled and marketed clothing collections across five niche fashion categories</li>
+      <li>Executed retail marketing at pop-ups and kiosks; coordinated photoshoots and brand visibility initiatives</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="entry-top"><h3>IT Career Training</h3><span class="when">JAN 2022 – DEC 2024</span></div>
+    <div class="org">KISD Career Center · Killeen, TX</div>
+    <ul>
+      <li>Completed hands-on cybersecurity training in system protection, cyber defense, and threat identification</li>
+      <li>Practiced vulnerability scanning, diagnosis, and remediation in simulated network environments</li>
+    </ul>
+  </div>
+
+  <h2>// projects</h2>
+  <div class="entry">
+    <div class="entry-top"><h3>Multi-Asset Algorithmic Trading Signal Platform</h3><span class="when">Python · Pandas · LLM-Directed</span></div>
+    <ul>
+      <li>Directed AI-assisted development of a production-style trading system: two-sided signal engine, walk-forward-optimized backtester with out-of-sample validation, memecoin scanner with rug-risk gating</li>
+      <li>Designed risk framework: fixed-fractional sizing, R-multiple scale-outs, break-even stops, daily-loss circuit breaker</li>
+      <li>Built regime filtering (VIX + dealer gamma), economic-calendar blackouts, and deduplicated Telegram alerting</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="entry-top"><h3>Algorithmic Content & Engagement Optimization Engine</h3><span class="when">Python · LLM APIs</span></div>
+    <ul>
+      <li>Automated pipeline generating, scheduling, and analyzing short-form video campaigns across multiple accounts</li>
+      <li>Applied retention/engagement-pattern analysis to optimize posting strategy from live performance data</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="entry-top"><h3>NFC Tag Security Research & Awareness Demo</h3><span class="when">NFC/NDEF · Python</span></div>
+    <ul>
+      <li>Demonstrated NFC social engineering risks (NDEF tag injection) with self-owned tags in a controlled environment</li>
+      <li>Built an awareness page and mitigation guide on detecting and defending against malicious NFC tags</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="entry-top"><h3>Honeypot Deployment & Analysis</h3><span class="when">Raspberry Pi · Linux</span></div>
+    <ul>
+      <li>Deployed a network honeypot to detect and analyze unauthorized access attempts and attacker behavior</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="entry-top"><h3>Self-Hosted Personal Cloud Storage</h3><span class="when">Raspberry Pi · Linux</span></div>
+    <ul>
+      <li>Converted a Raspberry Pi into secure self-hosted cloud storage with remote access from any device</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="entry-top"><h3>Local Voice-Model SaaS Tool</h3><span class="when">n8n · Docker · Ngrok</span></div>
+    <ul>
+      <li>Privacy-focused voice model service with automated audio, transcription, inference, and response pipelines</li>
+    </ul>
+  </div>
+
+  <h2>// education</h2>
+  <div class="entry">
+    <div class="entry-top"><h3>BBA, Cybersecurity</h3><span class="when">EXPECTED DEC 2028</span></div>
+    <div class="org">University of Texas at San Antonio — College of Applied AI, Cyber and Computing · GPA 3.54</div>
+    <ul>
+      <li>Dean's List — Fall 2025 & Spring 2026 · Clubs: Ave Magazine, Period Society</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h2>// certifications</h2>
+      <div class="entry"><ul>
+        <li>CompTIA Security+</li>
+        <li>IT Specialist – Network Security (Certiport)</li>
+        <li>Computer Networking Fundamentals (NOCTI)</li>
+        <li>Agile Transformation Leadership — Scrum Master</li>
+        <li>Certified Trader — Lucid Funded</li>
+        <li>Foundations of Cybersecurity (Coursera)</li>
+      </ul></div>
+    </div>
+    <div>
+      <h2>// conferences & awards</h2>
+      <div class="entry"><ul>
+        <li>PEARC26 — selected attendee, institutionally funded</li>
+        <li>TACC Cybersecurity Camp · RowdyCon · Tech Day SATX</li>
+        <li>LeaderShape Institute Graduate</li>
+        <li>Six Flags Leadership Visit — UTSA Alvarez College</li>
+        <li>Military Order of the Purple Heart volunteer</li>
+      </ul></div>
+    </div>
+  </div>
+</main>
+
+<footer><p>© 2026 William Brown-Lewis · <a href="index.html">back to home</a></p></footer>
+
+</body>
+</html>
