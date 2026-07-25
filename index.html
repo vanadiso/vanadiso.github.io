@@ -146,13 +146,7 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
 #win-msg{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:var(--disp);font-weight:700;font-size:clamp(1.6rem,7vw,3.4rem);color:var(--green);text-shadow:0 0 30px var(--green);z-index:5;animation:winflash .18s steps(2) infinite;text-align:center}
 @keyframes winflash{50%{color:#ffd700;text-shadow:0 0 30px #ffd700}}
 
-/* phase 2 — corruption */
-#phase-corrupt{background:#000}
-#glitch-canvas{position:absolute;inset:0;width:100%;height:100%}
-.err-text{position:relative;z-index:2;font-family:var(--mono);color:#f00;font-size:clamp(.8rem,2.4vw,1.1rem);text-align:center;line-height:1.9;text-shadow:2px 0 #0ff,-2px 0 #f0f;animation:shake .09s infinite}
-@keyframes shake{0%{transform:translate(0,0)}25%{transform:translate(-3px,2px)}50%{transform:translate(2px,-2px)}75%{transform:translate(-1px,-3px)}}
-
-/* phase 3 — binary snake */
+/* phase 2 — binary snake */
 #phase-snake{background:#000}
 #snake-canvas{position:absolute;inset:0;width:100%;height:100%}
 
@@ -191,18 +185,7 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
     </div>
   </div>
 
-  <!-- PHASE 2: corruption -->
-  <div class="intro-phase" id="phase-corrupt">
-    <canvas id="glitch-canvas"></canvas>
-    <div class="err-text">
-      FATAL ERROR 0xDEADBEEF<br>
-      MARKET INTEGRITY COMPROMISED<br>
-      wbl_exchange.exe HAS STOPPED RESPONDING<br>
-      >_ payload injected . . .
-    </div>
-  </div>
-
-  <!-- PHASE 3: binary snake -->
+  <!-- PHASE 2: binary snake -->
   <div class="intro-phase" id="phase-snake">
     <canvas id="snake-canvas"></canvas>
   </div>
@@ -472,46 +455,22 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
   buyBtn.addEventListener('click',function(){
     lockBtns();mode='moon';modeT=0;
     later(function(){flash('🚀 TO THE MOON!!!');},900);
-    later(function(){cancelAnimationFrame(mktRAF);startCorrupt();},2300);
+    later(function(){cancelAnimationFrame(mktRAF);startSnake();},2300);
   });
   sellBtn.addEventListener('click',function(){
     lockBtns();mode='crash';modeT=0;
     later(function(){flash('📉 PAPER HANDS?!');},900);
-    later(function(){cancelAnimationFrame(mktRAF);startCorrupt();},2300);
+    later(function(){cancelAnimationFrame(mktRAF);startSnake();},2300);
   });
   // auto-buy if idle so nobody gets stuck
   later(function(){if(!buyBtn.disabled)buyBtn.click();},7000);
 
-  /* ---------- PHASE 2: corruption ---------- */
   function show(id){
     document.querySelectorAll('.intro-phase').forEach(function(p){p.classList.remove('active');});
     document.getElementById(id).classList.add('active');
   }
-  var glitchRAF;
-  function startCorrupt(){
-    show('phase-corrupt');
-    var cv=document.getElementById('glitch-canvas');
-    cv.width=innerWidth;cv.height=innerHeight;
-    var g=cv.getContext('2d');
-    (function frame(){
-      // random glitch bars + static
-      g.fillStyle='rgba(0,0,0,0.25)';g.fillRect(0,0,cv.width,cv.height);
-      for(var i=0;i<14;i++){
-        g.fillStyle=['#f00','#0ff','#f0f','#fff','#111'][i%5];
-        g.globalAlpha=Math.random()*.5;
-        g.fillRect(Math.random()*cv.width,Math.random()*cv.height,Math.random()*cv.width*.6,2+Math.random()*24);
-      }
-      g.globalAlpha=1;
-      for(var j=0;j<220;j++){
-        g.fillStyle=Math.random()>.5?'#222':'#0a0a0a';
-        g.fillRect(Math.random()*cv.width,Math.random()*cv.height,2,2);
-      }
-      glitchRAF=requestAnimationFrame(frame);
-    })();
-    later(function(){cancelAnimationFrame(glitchRAF);startSnake();},2200);
-  }
 
-  /* ---------- PHASE 3: binary snake ---------- */
+  /* ---------- PHASE 2: binary snake ---------- */
   var snakeRAF;
   function startSnake(){
     show('phase-snake');
@@ -542,9 +501,11 @@ footer p{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
           c.fillText(Math.random()>.5?'1':'0', p.x, p.y+k*14);
         }
       }
+      if(t>=390){ // 1.5 passes across the screen, then done
+        cancelAnimationFrame(snakeRAF);endIntro();return;
+      }
       snakeRAF=requestAnimationFrame(frame);
     })();
-    later(function(){cancelAnimationFrame(snakeRAF);endIntro();},3800);
   }
 })();
 </script>
